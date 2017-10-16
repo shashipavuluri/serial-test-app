@@ -20,11 +20,15 @@ This application uses gradle to build the jar file. The following command can be
 Copy the jar file from build/libs to IOXPackage directory. This directory has all the files needed to build a package.
 
 Contents of the IOxPackage directory:
+
 package.yaml: (which mentions the serial device need to be enabled and launch.sh which mentions how to launch the application)
+
 libs directory: which has the dependencies (the serial port communication library *.so) needed by the application. This directory will be part of java native library path definition when launching the application.
+
 launch.sh: It mentions how to start the java application.
 
 In order to build the iox package, "cd" into this directory and run the following:
+
 ```
 ioxclient package .
 ```  
