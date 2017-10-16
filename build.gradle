@@ -17,6 +17,9 @@ apply plugin: 'jacoco'
 group = 'com.cisco.iotsp'
 version = '1.0.0.0'
 
+ext.jssc= '2.8.0'
+
+
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use 'jcenter' for resolving your dependencies.
@@ -30,9 +33,11 @@ configurations {
 	applibs
 }
 
+
+
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    compile files('./libs/rxtx-2.1.7.jar')
+    compile files('./libs/RXTXcomm.jar')
     compile 'org.slf4j:slf4j-api:1.7.13'
     compile group: 'org.ini4j', name: 'ini4j', version: '0.5.1'   
     
@@ -95,7 +100,7 @@ task fatJar(type: Jar, group: 'build') {
     manifest {
         attributes 'Implementation-Title': project.name,
                    'Implementation-Version': version,
-                   'Main-Class': 'com.hbr.app.TwoWaySerialComm'
+                   'Main-Class': 'com.hbr.app.TestSerialApp'
     }
     from (sourceSets.main.java.srcDirs[1])
     from {configurations.applibs.collect { it.isDirectory() ? it : zipTree(it) } }

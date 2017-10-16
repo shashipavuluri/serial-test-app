@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
 Implementation-Title: sensor-app1
 Implementation-Version: 1.0.0.0
-Main-Class: com.hbr.app.TwoWaySerialComm
+Main-Class: com.hbr.app.TestSerialApp
 

@@ -10,6 +10,9 @@ process_stop() {
 }
 
 echo $CAF_APP_LOG_DIR >> $CAF_APP_LOG_DIR/stdout.log
+echo 'Check the serial port'
+echo $HOST_DEV1 >> $CAF_APP_LOG_DIR/stdout.log
+
 cp $CAF_APP_PATH $DEST -r
 cp $CAF_APP_CONFIG_FILE $DEST/app
 date >> $CAF_APP_LOG_DIR/stdout.log 2>&1 
