@@ -35,11 +35,27 @@ ioxclient package .
 
 An ioxclient is also provided here in iox-client directory.
 
-## Sample Code 
+## Sample Code for reading data through RS232 
 The code which show the usage of reading data from the serial port is located here.
 ```  
 src/main/java/com/hbr/app/TestSerial.java   (Object which connects and reads data)
 src/main/java/com/hbr/app/TestSerialApp.java (application)
+src/main/java/com/hbr/app/TestSerialApp.java (application)
+```  
+
+## Sample Code for reading data through RS232 
+The code which show the usage of reading data from the serial port is located here.
+```  
+src/main/java/com/hbr/app/TestSerial485.java   (Object which connects and reads data)
+src/main/java/com/hbr/app/TestSerialAppRS485.java (application)
+```  
+
+In build.gradlew please change the line 108 to point to right application which need to be built. 
+```  
+'Main-Class': 'com.hbr.app.TestSerialAppRS485' [sample app talking to RS485 device]
+'Main-Class': 'com.hbr.app.TwoWaySerialComm' [original application]
+'Main-Class': 'com.hbr.app.TestSerialApp' [sample app talking to RS232 device]
+'Main-Class': 'com.hbr.app.TestJscomm' [sample app using Fazecast/jSerialComm] 
 ```  
 
 

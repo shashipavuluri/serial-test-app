@@ -1,0 +1,36 @@
+descriptor-schema-version: "2.0"
+
+info:
+  name: RS485 Sample serial app on Edge
+  description: "IOx Java PaaS style Application for reading data from serial port.."
+  version: "1.0"
+  author-link: "http://www.cisco.com"
+  author-name: "Cisco Systems"
+
+app:
+  # Indicate app type (vm, paas, lxc etc.,)
+  type: paas
+
+  resources:
+      profile: c1.medium
+      cpu: 400
+      memory: 128
+      network:
+        -
+          interface-name: eth0
+          ports:
+            tcp:
+            - 1337
+      devices:
+        -
+          type: serial
+          label: HOST_DEV1
+          usage: This is monitoring sensors
+
+
+  startup:
+    runtime: java-se-embedded-cp3
+    runtime-version: 1.8
+    runtime-options:
+      classpath: "$CAF_APP_PATH/"
+    target: launch.sh
