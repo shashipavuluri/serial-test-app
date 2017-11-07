@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class TestSerialAppRS485 {
   
-  private static TestSerial tserial = null;
+  private static TestSerial485 tserial = null;
   public static void main ( String[] args )
   {
       System.out.println("Starting sensor application : TestSerialApp(RS232 RS485)");
@@ -18,6 +18,11 @@ public class TestSerialAppRS485 {
         public void run() {
           System.out.println("stopping TestSerialApp");
           if (tserial != null) {
+            System.out.println("Sending shutdown commands and waiting for data...");
+            String initStr = "*11\rdemov1\r~~~G\rdemov1\r";
+            byte [] barray = initStr.getBytes();
+            System.out.println("+++++++++  Sending command ++++++++ "  + Arrays.toString(barray));
+            tserial.writeData(barray);
             tserial.disconnect();
             System.out.println("msg='Disconnected the serial port");
           }
@@ -44,7 +49,7 @@ public class TestSerialAppRS485 {
         System.out.println("Serial Ports to connect from environment variable(Defined in package.yaml) " + System.getenv("HOST_DEV1"));
         
         System.out.println("Initializing TestSerial Object");
-        TestSerial485 tserial = new TestSerial485();
+        tserial = new TestSerial485();
         System.out.println("Search for ports");
         tserial.scanPorts();
         System.out.println("Connecting to: " + System.getenv("HOST_DEV1"));

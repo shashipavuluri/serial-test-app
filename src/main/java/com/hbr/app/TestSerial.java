@@ -59,7 +59,7 @@ public class TestSerial implements SerialPortEventListener {
            if ( commPort instanceof SerialPort)
            {
                SerialPort serialPort = (SerialPort) commPort;
-               serialPort.setSerialPortParams(115200,SerialPort.DATABITS_8,SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
+               serialPort.setSerialPortParams(9600,SerialPort.DATABITS_8,SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
                System.out.println("Initialized the serial comm port");
                isConnected = true;
            }
@@ -105,6 +105,23 @@ public class TestSerial implements SerialPortEventListener {
     System.out.println("Encountered event... " + evt.getEventType());
     if (evt.getEventType() == SerialPortEvent.DATA_AVAILABLE)
     {
+      System.out.println("Go ahead to read data....");
+      byte[] buffer = new byte[1024];
+      int len = -1;
+      try
+      {
+          System.out.println("Serial reader starting to read data....");   
+          while ( ( len = this.inputStream.read(buffer)) > -1 )
+          {
+              System.out.print(new String(buffer,0,len));
+          }
+          System.out.println("Serial reader Done reading the data with length : " + len);
+      }
+      catch ( IOException e )
+      {
+        System.out.print("caught an exception " + e.getMessage());
+      }
+      /*
         try
         {
             byte singleData = (byte)inputStream.read();
@@ -122,6 +139,7 @@ public class TestSerial implements SerialPortEventListener {
         {
             System.out.println("Error reading Data : " + e.getMessage());
         }
+        */
     }
   }
   

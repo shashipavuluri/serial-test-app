@@ -141,6 +141,7 @@ public class TestSerial485 implements SerialPortEventListener {
               //Java byte is from -128 - 127
               //unsigned byte is 0 -255
               //Converting any -ve bytes to +ve
+              System.out.println(" Converted:");
               System.out.print("[");
               for(int i=0;i<buffer.length;i++) {
                 Byte b = new Byte(buffer[i]);
@@ -148,12 +149,33 @@ public class TestSerial485 implements SerialPortEventListener {
                 System.out.print(",");
               }
               System.out.println("]");
+              System.out.println(" Actual:");
+              for(int i=0;i<buffer.length;i++) {
+                Byte b = new Byte(buffer[i]);
+                System.out.print(b.intValue());
+                System.out.print(",");
+              }
+              
               //doing exactly what python app is doing ???? need to check if they are correct.
               Byte b = new Byte(buffer[7]);
-              int humid_high = b.intValue()/10;
+              int humid_high = b.intValue() < 0 ? 256 + b.intValue() : b.intValue();
+              b = new Byte(buffer[8]);
+              int humid_low = b.intValue() < 0 ? 256 + b.intValue() : b.intValue();
+              System.out.println(" Humidity low high [" +  humid_low + " , " + humid_high + "]");
+              int humidity = humid_high;
+              humidity   = (humidity * 256) |  humid_low;
+              humidity   = humidity / 10;
+              
               b = new Byte(buffer[9]);
-              int temp_high = ((b/10)*(9/5)) + 32;
-              System.out.println(" Temperature : "+ temp_high + " Humidity : " + humid_high);
+              int temp_high = b.intValue() < 0 ? 256 + b.intValue() : b.intValue();
+              b = new Byte(buffer[10]);
+              int temp_low = b.intValue() < 0 ? 256 + b.intValue() : b.intValue();
+              System.out.println(" Temp low high [" +  temp_low + " , " + temp_high + "]");
+              int temperature = temp_high;
+              temperature = (temperature * 256) | temp_low;
+              temperature   = temperature/10;
+              
+              System.out.println("====== Temperature: "+temperature +" ====== Humidity:  =======" + humidity);
             }
         }
         catch (Exception e)
@@ -184,6 +206,7 @@ public class TestSerial485 implements SerialPortEventListener {
     try {
       
       System.out.println("Serial Write data " + Arrays.toString(byteArray));
+      outputStream.flush();
       outputStream.write(byteArray);
       outputStream.flush();
     } catch (IOException e) {
