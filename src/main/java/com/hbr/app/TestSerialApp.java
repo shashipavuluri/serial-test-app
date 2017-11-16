@@ -56,7 +56,7 @@ public class TestSerialApp {
         }
         System.out.println("Looking for data indefinately");
         while(true) {
-          Thread.sleep(200);
+          Thread.sleep(20000);
         }
        
       }
@@ -67,5 +67,6 @@ public class TestSerialApp {
       }
  
       System.out.println("Exiting the application");
+      System.exit(-1);
   }
 }

@@ -1,7 +1,7 @@
 descriptor-schema-version: "2.0"
 
 info:
-  name: Sample serial app on Edge
+  name: RS232 Sample serial app on Edge
   description: "IOx Java PaaS style Application for reading data from serial port.."
   version: "1.0"
   author-link: "http://www.cisco.com"

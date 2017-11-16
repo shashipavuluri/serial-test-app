@@ -110,12 +110,22 @@ public class TestSerial implements SerialPortEventListener {
       int len = -1;
       try
       {
-          System.out.println("Serial reader starting to read data....");   
+          System.out.println("Serial reader starting to read data....");  
+          String tstr;
           while ( ( len = this.inputStream.read(buffer)) > -1 )
           {
-              System.out.print(new String(buffer,0,len));
+              tstr = new String(buffer,0,len);
+              System.out.print(tstr);
+              String[] tokens = tstr.split("\\s+");
+              int channel = Integer.parseInt(tokens[0]);
+              float temperature = Float.parseFloat(tokens[1]);
+              String jsonStr = "{ \"channel\": " +  channel + "," 
+                              +  " \"temperature\": " + temperature + "}";
+              System.out.println("Serial reader Done reading the data " + jsonStr);
+              
           }
           System.out.println("Serial reader Done reading the data with length : " + len);
+          
       }
       catch ( IOException e )
       {
